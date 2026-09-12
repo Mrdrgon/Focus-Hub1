@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Side Nav Demo</title>
+<style>
+  :root{
+    --ink:#1b1b1b;
+    --paper:#f6f5f2;
+    --rail:#1b1b1b;
+    --accent:#e0562b;
+    --muted:#9a9a92;
+  }
+
+  *{box-sizing:border-box;}
+
+  html{
+    scroll-behavior:smooth;
+  }
+
+  body{
+    margin:0;
+    font-family:'Segoe UI', system-ui, sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+  }
+
+  /* ---------- RAIL ---------- */
+  .rail{
+    position:fixed;
+    top:50%;
+    left:16px;
+    transform:translateY(-50%);
+    height:220px;
+    width:14px;
+    background:var(--rail);
+    border-radius:8px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:0;
+    z-index:100;
+    transition:width .35s cubic-bezier(.4,0,.2,1);
+    overflow:hidden;
+    box-shadow:0 4px 20px rgba(0,0,0,.15);
+  }
+
+  .rail:hover{
+    width:220px;
+  }
+
+  .rail-item{
+    position:relative;
+    display:flex;
+    align-items:center;
+    height:33.33%;
+    cursor:pointer;
+  }
+
+  /* thin segment indicator, always visible */
+  .rail-bar{
+    width:14px;
+    min-width:14px;
+    height:100%;
+    background:#3a3a3a;
+    transition:background .25s ease;
+  }
+
+  .rail-item.active .rail-bar{
+    background:var(--accent);
+  }
+
+  .rail-item:hover .rail-bar{
+    background:var(--accent);
+  }
+
+  /* label revealed on rail hover */
+  .rail-label{
+    white-space:nowrap;
+    color:#eee;
+    font-size:14px;
+    letter-spacing:.03em;
+    padding-left:18px;
+    opacity:0;
+    transform:translateX(-8px);
+    transition:opacity .25s ease .05s, transform .25s ease .05s;
+  }
+
+  .rail:hover .rail-label{
+    opacity:1;
+    transform:translateX(0);
+  }
+
+  .rail-item.active .rail-label{
+    color:var(--accent);
+    font-weight:600;
+  }
+
+  .rail-index{
+    color:var(--muted);
+    font-size:11px;
+    margin-right:10px;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .rail-item.active .rail-index{
+    color:var(--accent);
+  }
+
+  /* ---------- CONTENT ---------- */
+  .content{
+    width:100%;
+    padding:0 8vw 0 100px;
+  }
+
+  .panel{
+    width:100%;
+    min-height:100vh;
+    gap:6vw;
+    align-items:center;
+    grid-template-columns:1fr 1fr;
+    display:grid;
+    padding:80px 0;
+  }
+
+  .panel h1{
+    font-size:2.4rem;
+    margin:0 0 .6rem;
+    line-height:1.1;
+  }
+
+  .panel p{
+    line-height:1.7;
+    color:#4a4a44;
+    max-width:44ch;
+  }
+
+  .eyebrow{
+    color:var(--accent);
+    font-size:.8rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:.8rem;
+  }
+
+  /* image side */
+  .media{
+    position:relative;
+    width:100%;
+  }
+
+  .media img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:10px;
+    box-shadow:0 12px 30px rgba(0,0,0,.15);
+  }
+
+  .media-link{
+    position:absolute;
+    right:14px;
+    bottom:14px;
+    background:var(--ink);
+    color:#fff;
+    text-decoration:none;
+    font-size:.8rem;
+    letter-spacing:.02em;
+    padding:9px 16px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    box-shadow:0 6px 16px rgba(0,0,0,.25);
+    transition:background .2s ease, transform .2s ease;
+  }
+
+  .media-link:hover{
+    background:var(--accent);
+    transform:translateY(-2px);
+  }
+
+  .media-link svg{
+    width:12px;
+    height:12px;
+  }
+
+  @media (max-width: 780px){
+    .panel{
+      grid-template-columns:1fr;
+      min-height:auto;
+      padding:60px 0;
+    }
+    .content{
+      padding:0 8vw 0 60px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav class="rail" id="rail">
+  <div class="rail-item active" data-target="0">
+    <div class="rail-bar"></div>
+    <span class="rail-label"><span class="rail-index">01</span>Overview</span>
+  </div>
+  <div class="rail-item" data-target="1">
+    <div class="rail-bar"></div>
+    <span class="rail-label"><span class="rail-index">02</span>Details</span>
+  </div>
+  <div class="rail-item" data-target="2">
+    <div class="rail-bar"></div>
+    <span class="rail-label"><span class="rail-index">03</span>Contact</span>
+  </div>
+</nav>
+
+<main class="content">
+
+  <section class="panel" id="panel-0" data-panel="0">
+    <div class="text">
+      <div class="eyebrow">Section 01</div>
+      <h1>Overview</h1>
+      <p>Replace this with your first block of writing. Hover the bar on the left to see all three section names, click one to jump to it.</p>
+    </div>
+    <div class="media">
+      <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?w=900&q=80" alt="Placeholder">
+      <a class="media-link" href="https://example.com" target="_blank" rel="noopener">
+        View more
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-1" data-panel="1">
+    <div class="text">
+      <div class="eyebrow">Section 02</div>
+      <h1>Details</h1>
+      <p>Replace this with your second block of writing.</p>
+    </div>
+    <div class="media">
+      <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=900&q=80" alt="Placeholder">
+      <a class="media-link" href="https://example.com" target="_blank" rel="noopener">
+        View more
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-2" data-panel="2">
+    <div class="text">
+      <div class="eyebrow">Section 03</div>
+      <h1>Contact</h1>
+      <p>Replace this with your third block of writing.</p>
+    </div>
+    <div class="media">
+      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&q=80" alt="Placeholder">
+      <a class="media-link" href="https://example.com" target="_blank" rel="noopener">
+        View more
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H9M17 7V15"/></svg>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  const items = document.querySelectorAll('.rail-item');
+  const panels = document.querySelectorAll('.panel');
+
+  // clicking a rail item smooth-scrolls to that section
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = document.getElementById('panel-' + item.dataset.target);
+      target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // highlight the rail item matching whichever section is centered in view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.dataset.panel;
+        items.forEach(i => i.classList.remove('active'));
+        document.querySelector(`.rail-item[data-target="${id}"]`).classList.add('active');
+      }
+    });
+  }, { threshold: 0.5 });
+
+  panels.forEach(panel => observer.observe(panel));
+</script>
+
+</body>
+</html>
