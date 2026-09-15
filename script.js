@@ -23,6 +23,15 @@ const observer = new IntersectionObserver((entries) => {
 
 revealEls.forEach(el => observer.observe(el));
 
+const hamburger = document.querySelector('.hamburger');
+const nav = document.querySelector('nav');
+
+hamburger.addEventListener('click', () => {
+  nav.classList.toggle('open');
+  hamburger.classList.toggle('is-active');
+});
+
+
 const items = document.querySelectorAll('.rail-item');
 const panels = document.querySelectorAll('.panel');
 
@@ -48,3 +57,5 @@ setTimeout(() => {
     roleFallback.classList.add('show');
   }
 }, 4000);
+
+

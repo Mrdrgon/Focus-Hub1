@@ -13,6 +13,11 @@
     <img src="images/logo.png" alt="Focus Hub">
     <a href="index.html" class="logo">Focus <span>Hub</span></a>
   </div>
+  <div class="hamburger">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </div>
   <nav>
     <ul>
       <li><a href="whatwedo.html">Our Work</a></li>
@@ -36,25 +41,6 @@
   </div>
 </section>
 
-
-<nav class="rail" id="rail">
-  <div class="rail-item active" data-target="0">
-    <div class="rail-bar"></div>
-    <span class="rail-label"><span class="rail-index">01</span>Video Storytelling</span>
-  </div>
-  <div class="rail-item" data-target="1">
-    <div class="rail-bar"></div>
-    <span class="rail-label"><span class="rail-index">02</span>HUMAN LIBRARIES</span>
-  </div>
-  <div class="rail-item" data-target="2">
-    <div class="rail-bar"></div>
-    <span class="rail-label"><span class="rail-index">03</span>VISUAL DISPLAYS</span>
-  </div>
-  <div class="rail-item" data-target="3">
-    <div class="rail-bar"></div>
-    <span class="rail-label"><span class="rail-index">03</span>DIGITALIZATION</span>
-  </div>
-</nav>
 
 <main class="content">
 
@@ -120,34 +106,11 @@
     </section>
 </main>
 
-<script>
-  const items = document.querySelectorAll('.rail-item');
-  const panels = document.querySelectorAll('.panel');
 
-  // clicking a rail item smooth-scrolls to that section
-  items.forEach(item => {
-    item.addEventListener('click', () => {
-      const target = document.getElementById('panel-' + item.dataset.target);
-      target.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-
-  // highlight the rail item matching whichever section is centered in view
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.dataset.panel;
-        items.forEach(i => i.classList.remove('active'));
-        document.querySelector(`.rail-item[data-target="${id}"]`).classList.add('active');
-      }
-    });
-  }, { threshold: 0.5 });
-
-  panels.forEach(panel => observer.observe(panel));
-</script>
 <footer>
   © 2026 Focus Hub Inc. All rights reserved.
 </footer>
+<script src="script.js"></script>
 </body>
 </html>
 
